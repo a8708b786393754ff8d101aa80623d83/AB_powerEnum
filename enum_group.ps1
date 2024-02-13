@@ -133,7 +133,7 @@ function Get-GroupSecurity{
 function Get-GroupSecurityGlobal{
     <#
         .Description
-        ComputerObjectEnum  Run a filtered search on Universal Security Global Search. 
+        Get-GroupSecurityGlobal  Run a filtered search on Universal Security Global Search. 
     #>
     
     $objSearch.Filter = '(&(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=2147483650))'; 
