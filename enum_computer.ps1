@@ -30,6 +30,11 @@ $UAC_INDICATOR = [Ordered]@{
 $objSearch = [adsisearcher]"";
 
 function ComputerObjectEnum{
+    <#
+        .Description
+        ComputerObjectEnum Shows attributes on the given search. 
+    #>
+
     param(
         [System.DirectoryServices.SearchResultCollection]$ResultCollection
     )
@@ -95,6 +100,11 @@ function ComputerObjectEnum{
 }
 
 function Get-Computers{
+    <#
+        .Description
+        Get-Computers Run a filter search on computers.
+    #>
+    
     $objSearch.Filter = "(&(objectCategory=Computer))"
     $result = $objSearch.FindAll(); 
 
@@ -102,6 +112,11 @@ function Get-Computers{
     "[$]$($result.Count) Ordinateurs[$]"
 }
 function Get-ComputerDesactivedAdministrator{
+    <#
+        .Description
+        Get-ComputerDesactivedAdministrator Execute a filter search on disabled administrator accounts.
+    #>
+
     $objSearch.Filter = "(&(objectClass=computer)(userAccountControl:1.2.840.113556.1.4.803:=2))"
     $result = $objSearch.FindAll(); 
 
@@ -109,6 +124,11 @@ function Get-ComputerDesactivedAdministrator{
     "[$]$($result.Count) Ordinateurs adminstrativement désavtivé[$]"
 }
 function Get-ComputersDC{
+    <#
+        .Description
+        Get-ComputersDC Run a filter search on the domain controller search.
+    #>
+
     $objSearch.Filter = "(&(objectCategory=Ordinateur)(userAccountControl:1.2.840.113556.1.4.803:=8192))"
     $result = $objSearch.FindAll(); 
 
@@ -118,6 +138,11 @@ function Get-ComputersDC{
 
 #================== COMPUTER OS =====================
 function Get-ComputerWindows{
+    <#
+        .Description
+        Get-ComputerWindows Run a filter search on Windows Computer Search.
+    #>
+
     $objSearch.Filter = "(&(&(objectCategory=Computer)(operatingSystem=Windows *)))"
     $result = $objSearch.FindAll(); 
 
@@ -125,6 +150,11 @@ function Get-ComputerWindows{
     "[$]$($result.Count) Ordinateurs Windows[$]"
 }
 function Get-ComputerLinux{
+    <#
+        .Description
+        Get-ComputerWindows Run a filter search on Linux Computer Search.
+    #>
+
     $objSearch.Filter = "(&(&(objectCategory=Computer)(operatingSystem=Linux *)))"
     $result = $objSearch.FindAll(); 
 

@@ -31,6 +31,10 @@ $UAC_INDICATOR = [Ordered]@{
 
 
 function ServiceObjectEnum{
+    <#
+        .Description
+        ServiceObjectEnum Shows attributes on the given search. 
+    #>
 
     param(
         [System.DirectoryServices.SearchResultCollection]$ResultCollection
@@ -74,6 +78,11 @@ function ServiceObjectEnum{
 }
 
 function Get-Services{
+    <#
+        .Description
+        Get-Services Recover all services. 
+    #>
+    
     $objSearch.Filter = "(servicePrincipalName=*)"; #Liste de tous les servicePrincipalName
     $result = $objSearch.FindAll();
 

@@ -24,11 +24,16 @@ $UAC_INDICATOR = [Ordered]@{
     PASSWORD_EXPIRED = 8388608;
     TRUSTED_TO_AUTH_FOR_DELEGATION = 16777216;
     PARTIAL_SECRETS_ACCOUNT	= 67108864;
-}
+}Windows
 
 $objSearch = [adsisearcher]"";
 
 function UserObjectEnum{
+
+    <#
+        .Description
+        UserObjectEnum Shows attributes on the given search. 
+    #>
 
     param(
         [System.DirectoryServices.SearchResultCollection]$ResultCollection
@@ -65,6 +70,11 @@ function UserObjectEnum{
 }
 
 function Get-User{
+    <#
+        .Description
+        Get-User Run a filtered search on all users search. 
+    #>
+
     $objSearch.Filter = "(&(objectCategory=user))";
     $result = $objSearch.FindAll(); 
     
@@ -75,6 +85,11 @@ function Get-User{
    
 
 function Get-UserAdmin{
+    <#
+        .Description
+        Get-UserAdmin Run a filtered search on admin user search. 
+    #>
+    
     $objSearch.Filter = "(&(objectCategory=user)(adminCount=1))";
     $result = $objSearch.FindAll(); 
     
@@ -84,6 +99,11 @@ function Get-UserAdmin{
 }
     
 function Get-UserDoesChangedPasswd{
+    <#
+        .Description
+        Get-UserDoesChangedPasswd Run a filtered search looking for users who need to change their passwords. 
+    #>
+    
     $objSearch.Filter = "(&(objectCategory=user)(pwdLastSet=0))"; # Liste de tous les utilisateurs qui doivent changer de mot de passe lors de la prochaine connexion
     $result = $objSearch.FindAll(); 
 
@@ -93,6 +113,11 @@ function Get-UserDoesChangedPasswd{
 }
 
 function Get-Userkerberoastable{
+    <#
+        .Description
+        Get-Userkerberoastable Run a filtered search on finding users who are kerberoastable. 
+    #>
+    
     $objSearch.Filter = "(&(objectClass=user)(servicePrincipalName=*)(!(cn=krbtgt))(!(userAccountControl:1.2.840.113556.1.4.803:=2)))"; #Liste de tous les utilisateurs kerberoastables
     $result = $objSearch.FindAll(); 
 
@@ -103,6 +128,11 @@ function Get-Userkerberoastable{
 
 
 function Get-PasswdDescription{
+    <#
+        .Description
+        Get-PasswdDescription Run a filtered search looking for users who have the word password or pwd in their description. 
+    #>
+    
     $objSearch.Filter = "(&(objectCategory=user)(|description=*pass*)(description=*pwd*))"; #Liste de tous les utilisateurs avec *pass* ou *pwd* dans leur description
     $result = $objSearch.FindAll(); 
 
@@ -112,6 +142,11 @@ function Get-PasswdDescription{
 }
 
 function Get-UserPasswShort{
+    <#
+        .Description
+        Get-UserPasswShort Run a filtered search looking for users who have a short password (4 characters). 
+    #>
+    
     $objSearch.Filter = "(&(objectCategory=user)(badPwdCount>=4))"; #Liste de tous les utilisateurs qui sont presque verrouillés
     $result = $objSearch.FindAll(); 
 
@@ -122,6 +157,11 @@ function Get-UserPasswShort{
 }
 
 function Get-UserAsrepRoastables{
+    <#
+        .Description
+        Get-UserAsrepRoastables Exécutez une recherche filtrée sur la recherche d'utilisateur qui ne dispose pas de l'attribut requis de pré-authentification Kerberos.. 
+    #>
+    
     $objSearch.Filter = "(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=4194304))"; #Liste des utilisateurs asrep-roastables
     $result = $objSearch.FindAll(); 
 
