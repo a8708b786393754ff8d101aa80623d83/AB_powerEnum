@@ -6,6 +6,10 @@ $objSearch = [adsisearcher]"";
 
 
 function GroupObjectEnum{
+    <#
+        .Description
+        ComputerObjectEnum Shows attributes on the given search. 
+    #>
 
     param(
         [System.DirectoryServices.SearchResultCollection]$ResultCollection
@@ -52,6 +56,11 @@ function GroupObjectEnum{
 
 
 function Get-Group{
+    <#
+        .Description
+        Get-Group Run a filtered search on searching all groups. 
+    #>
+
     $objSearch.Filter = '(&(objectCategory=group))'; 
     $result = $objSearch.FindAll();
 
@@ -62,6 +71,11 @@ function Get-Group{
 
 #================== GROUPE ETENDU =====================
 function Get-DomainLocalGroup{
+    <#
+        .Description
+        Get-DomainLocalGroup Run a filtered search on finding all groups in the local domain. 
+    #>
+
     $objSearch.Filter = '(&(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=2147483652))'; 
     $result = $objSearch.FindAll();
 
@@ -71,6 +85,11 @@ function Get-DomainLocalGroup{
 }
 
 function Get-GlobalGroup{
+    <#
+        .Description
+        Get-GlobalGroup Run a filtered search on finding all group of globals. 
+    #>
+
     $objSearch.Filter = '(&(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=2147483650))'; 
     $result = $objSearch.FindAll();
 
@@ -79,7 +98,12 @@ function Get-GlobalGroup{
     "[*] $($result.Count) groupe global[*]";
 }
 
-function Get-UniversalGroup{
+function Get-GroupUniversal{
+    <#
+        .Description
+        Get-GroupUniversal Run a filtered search on finding all universal group. 
+    #>
+    
     $objSearch.Filter = "(&(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=2147483656))"; 
     $result = $objSearch.FindAll();
 
@@ -91,7 +115,12 @@ function Get-UniversalGroup{
 
 
 #================== GROUPE SECURITY =====================
-function Get-GroupSecurityGlobal{
+function Get-GroupSecurity{
+    <#
+        .Description
+        Get-GroupSecurity Run a filtered search on searching all security groups. 
+    #>
+    
     $objSearch.Filter = '(&(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=2147483648))'; 
     $result = $objSearch.FindAll();
 
@@ -102,6 +131,11 @@ function Get-GroupSecurityGlobal{
 
 
 function Get-GroupSecurityGlobal{
+    <#
+        .Description
+        ComputerObjectEnum  Run a filtered search on Universal Security Global Search. 
+    #>
+    
     $objSearch.Filter = '(&(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=2147483650))'; 
     $result = $objSearch.FindAll();
 
@@ -111,6 +145,11 @@ function Get-GroupSecurityGlobal{
 }
 
 function Get-GroupSecurityLocal{
+    <#
+        .Description
+        Get-GroupSecurityLocal Run a filtered search on Universal Security Local Search. 
+    #>
+
     $objSearch.Filter = '(&(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=2147483652))'; 
     $result = $objSearch.FindAll();
 
@@ -120,6 +159,11 @@ function Get-GroupSecurityLocal{
 }
 
 function Get-GroupSecurityUniversal{
+    <#
+        .Description
+        Get-GroupSecurityUniversal Run a filtered search on Universal Security Group Search. 
+    #>
+    
     $objSearch.Filter = '(&(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=2147483656))'; 
     $result = $objSearch.FindAll();
 
@@ -130,6 +174,11 @@ function Get-GroupSecurityUniversal{
 
 #================== GROUPE DISTRIBUTION =====================
 function Get-GroupDistribution{
+    <#
+        .Description
+        Get-GroupDistribution Run a filtered search on finding all distribution groups. 
+    #>
+
     $objSearch.Filter = '(&(objectCategory=group)(!(groupType:1.2.840.113556.1.4.803:=2147483648)))'; 
     $result = $objSearch.FindAll();
 
@@ -139,6 +188,11 @@ function Get-GroupDistribution{
 }
 
 function Get-GroupDistributionGlobal{
+    <#
+        .Description
+        Get-GroupDistributionGlobal Run a filtered search on global distribution group search. 
+    #>
+
     $objSearch.Filter = '(&(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=2)(!(groupType:1.2.840.113556.1.4.803:=2147483648)))'; 
     $result = $objSearch.FindAll();
 
@@ -148,6 +202,11 @@ function Get-GroupDistributionGlobal{
 }
 
 function Get-GroupDistributionLocal{
+    <#
+        .Description
+        Get-GroupDistributionLocal Run a filtered search on local distribution group search. 
+    #>
+
     $objSearch.Filter = '(&(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=4)(!(groupType:1.2.840.113556.1.4.803:=2147483648)))'; 
     $result = $objSearch.FindAll();
 
@@ -156,6 +215,11 @@ function Get-GroupDistributionLocal{
     "[*] $($result.Count) groupe de distribution local du domaine[*]";
 }
 function Get-GroupDistributionUniversal{
+    <#
+        .Description
+        Get-GroupDistributionUniversal Run a filtered search on Universal Distribution Group Search. 
+    #>
+
     $objSearch.Filter = '(&(objectCategory=group)(groupType:1.2.840.113556.1.4.803:=8)(!(groupType:1.2.840.113556.1.4.803:=2147483648)))'; 
     $result = $objSearch.FindAll();
 
@@ -166,6 +230,11 @@ function Get-GroupDistributionUniversal{
 
 #================== GROUPE EMPTY =====================
 function Get-EmptyGroups{
+    <#
+        .Description
+        Get-EmptyGroups Execute a filter search on the search for empty groups. 
+    #>
+    
     $objSearch.Filter = '(&(objectClass=group)(!member=*))'; 
     $result = $objSearch.FindAll();
 
