@@ -8,7 +8,7 @@ $objSearch = [adsisearcher]"";
 function GroupObjectEnum{
     <#
         .Description
-        ComputerObjectEnum Shows attributes on the given search. 
+        GroupObjectEnum Shows attributes on the given search. 
     #>
 
     param(
